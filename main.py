@@ -1,5 +1,5 @@
 from src.helpers.save import append_data_to_excel
-from src.views.nyt_view import nyt_view
+from src.views.nyt_view import NYTView
 
 
 def start_extraction():
