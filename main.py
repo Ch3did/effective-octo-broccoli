@@ -4,6 +4,7 @@ from src.views.nyt_view import NYTView
 
 def start_extraction():
     nyt = NYTView()
+    nyt.run()
 
 
 if __name__ == "__main__":
