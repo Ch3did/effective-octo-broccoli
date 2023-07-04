@@ -3,11 +3,17 @@
 .PHONY: start
 # Automate first install
 start:
-	@echo ">>> Removing Python 3.8 virtualenv if exists..."
-	@poetry env remove 3.8 2>/dev/null || :
-	@echo ">>> Install Dependencies ..."
-	@poetry install
-	@echo ">>> Running Git ..."
-	@git init && git add . && git commit -m "chore(cookie): first commit"
-	@echo ">>> Opening VSCode..."
-	@cp env.credentials .env && code .
+	@echo ">>> Starting project"
+	@echo " \n >>> Creating directorys"
+	@mkdir tmp/
+	@mkdir tmp/pictures
+	@echo ">>> Creating Venv"
+	@python3 -m venv .venv
+	@source .venv/bin/activate
+	@pip3 install requirements.txt
+	@cp env.credentials .env
+
+.PHONY: run
+# Automate first install
+run:
+	@python3 main.py
