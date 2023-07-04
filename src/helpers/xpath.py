@@ -41,7 +41,7 @@ class XpathNotations:
 
     @classmethod
     def get_date(self, item):
-        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li'
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li[{item}]/div/span'
 
     @classmethod
     def get_description(self, item):
