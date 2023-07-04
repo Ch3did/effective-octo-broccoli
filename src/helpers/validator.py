@@ -1,6 +1,7 @@
-from datetime import datetime, date
-from dateutil import relativedelta
 import re
+from datetime import date, datetime
+
+from dateutil import relativedelta
 
 
 def date_validator(incomming_date, filter):
@@ -11,17 +12,17 @@ def date_validator(incomming_date, filter):
 
     # Adjust date_format
     for_upload = True
-    commas = incomming_date.find(',')
-    dot = incomming_date.find('.')
+    commas = incomming_date.find(",")
+    dot = incomming_date.find(".")
     str_month = incomming_date[:dot].strip(" ")
 
-    year = incomming_date[-4:] if  commas else date.today().year
+    year = incomming_date[-4:] if commas else date.today().year
     month = str(datetime.strptime(str_month, "%B").month)
-    day = incomming_date[dot: commas if commas>0 else None]
-    
+    day = incomming_date[dot : commas if commas > 0 else None]
+
     # Make data notations and compare
     date_notation = datetime.strptime(f"{month}/{year}", "%m/%Y")
-    today = datetime.strptime(f'{date.today().month}/{date.today().year}', "%m/%Y")
+    today = datetime.strptime(f"{date.today().month}/{date.today().year}", "%m/%Y")
 
     delta = relativedelta.relativedelta(date_notation, today)
 
@@ -35,7 +36,7 @@ def money_validator(title, description):
     pattern = r"\$\d+(\.\d+)?|\d+(\.\d+)? dollars?|\d+ USD"
     matches_title = re.findall(pattern, title)
     matches_desc = re.findall(pattern, description)
-    
+
     if matches_desc or matches_title:
         return True
     return False
