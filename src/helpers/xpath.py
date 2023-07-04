@@ -1,5 +1,9 @@
 class XpathNotations:
     @classmethod
+    def get_cookie_btn(self) -> str:
+        return '//*[@id="site-content"]/div[2]/div[2]/div/div[2]/button[1]'
+
+    @classmethod
     def get_date_btn(self) -> str:
         return (
             '//*[@id="site-content"]/div[1]/div[1]/div[2]/div/div/div[1]/div/div/button'
@@ -29,4 +33,24 @@ class XpathNotations:
 
     @classmethod
     def get_search_btn(self):
-        return '//*[@id="site-content"]/div/div[1]/div[1]/form/div[1]/button/svg'
+        return '//*[@id="site-content"]/div[1]/div[1]/div[1]/form/div[1]/button/svg'
+
+    @classmethod
+    def get_title(self, item):
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li[{item}]/div/div/div/a/h4'
+
+    @classmethod
+    def get_date(self, item):
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li'
+
+    @classmethod
+    def get_description(self, item):
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li[{item}]/div/div/div/a/p[1]'
+
+    @classmethod
+    def get_picture_name(self, item):
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li[{item}]/div/div/figure/div/img'
+
+    @classmethod
+    def btn_show_more(self):
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[3]/div/button'
