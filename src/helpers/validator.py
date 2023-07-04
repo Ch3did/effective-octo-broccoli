@@ -14,11 +14,14 @@ def date_validator(incomming_date, filter):
     for_upload = True
     commas = incomming_date.find(",")
     dot = incomming_date.find(".")
+    if dot < 0:
+        dot = incomming_date.find(" ")
+
     str_month = incomming_date[:dot].strip(" ")
 
     year = incomming_date[-4:] if commas > 0 else date.today().year
     month = str(datetime.strptime(str_month, "%B").month).zfill(2)
-    day = incomming_date[dot : commas if commas > 0 else None].zfill(2)
+    day = str(incomming_date[dot : commas if commas > 0 else None]).zfill(2)
 
     # Make data notations and compare
     date_notation = datetime.strptime(f"{month}/{year}", "%m/%Y")
@@ -26,7 +29,7 @@ def date_validator(incomming_date, filter):
     year_today = str(date.today().year).zfill(2)
     today = datetime.strptime(f"{month_today}/{year_today}", "%m/%Y")
 
-    delta = relativedelta.relativedelta(date_notation, today)
+    delta = relativedelta.relativedelta(today, date_notation)
 
     if delta.months > filter:
         for_upload = False
