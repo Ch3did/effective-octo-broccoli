@@ -32,8 +32,16 @@ class XpathNotations:
         return '//*[@id="searchTextField"]'
 
     @classmethod
+    def get_sort(self):
+        return '//*[@id="site-content"]/div[1]/div[1]/div[1]/form/div[2]/div/select/option[2]'
+
+    @classmethod
     def get_search_btn(self):
         return '//*[@id="site-content"]/div[1]/div[1]/div[1]/form/div[1]/button/svg'
+
+    @classmethod
+    def get_all_in_page(self):
+        return f'//*[@id="site-content"]/div[1]/div[2]/div[2]/ol/li'
 
     @classmethod
     def get_title(self, item):
