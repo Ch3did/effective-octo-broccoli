@@ -85,14 +85,19 @@ class NYTView:
         search_filed.send_keys(Keys.ENTER)
         time.sleep(1)
 
+    def adjust_sort(self) -> None:
+        "Set sort by Newest"
+        self.driver.find_element(By.XPATH, self.xpath.get_sort()).click()
+
     def get_data(self) -> dict:
         has_finish = False
         item = 1
         data = []
         while not has_finish:
+            time.sleep(1)
             logger.info(f"Running item {item}")
             page_len = len(
-                self.driver.find_elements(By.XPATH, self.xpath.get_date(item))
+                self.driver.find_elements(By.XPATH, self.xpath.get_all_in_page())
             )
 
             try:
@@ -142,12 +147,12 @@ class NYTView:
                 item += 1
 
             except NoSuchElementException as error:
-                logger.error("Unable to find Element")
-                has_finish = True
+                logger.error(f"Unable to find Element on item {item}")
+                item += 1
 
             if item > page_len:
-                logger.info("Open more itens to page")
-                self.driver.find_elements(By.XPATH, self.xpath.get_date(item)).click()
+                logger.info("Open more itens")
+                self.driver.find_element(By.XPATH, self.xpath.btn_show_more()).click()
 
         return data
 
@@ -155,6 +160,7 @@ class NYTView:
         # Added filters
         self.select_date_range()
         self.select_section()
+        self.adjust_sort()
         self.uses_search()
 
         return self.get_data()
