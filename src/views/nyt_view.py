@@ -121,7 +121,7 @@ class NYTView:
                         "picture_url": self.driver.find_element(
                             By.XPATH, self.xpath.get_picture_name(item)
                         ).get_attribute("src"),
-                        "picture_path": f"tmp/{self.driver.find_element(By.XPATH, self.xpath.get_title(item)).text}.png",
+                        "picture_path": f"tmp/pictures/{self.driver.find_element(By.XPATH, self.xpath.get_title(item)).text}.png",
                     }
 
                     news["has_money_on_it"] = (
