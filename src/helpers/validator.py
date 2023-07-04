@@ -16,13 +16,15 @@ def date_validator(incomming_date, filter):
     dot = incomming_date.find(".")
     str_month = incomming_date[:dot].strip(" ")
 
-    year = incomming_date[-4:] if commas else date.today().year
-    month = str(datetime.strptime(str_month, "%B").month)
-    day = incomming_date[dot : commas if commas > 0 else None]
+    year = incomming_date[-4:] if commas > 0 else date.today().year
+    month = str(datetime.strptime(str_month, "%B").month).zfill(2)
+    day = incomming_date[dot : commas if commas > 0 else None].zfill(2)
 
     # Make data notations and compare
     date_notation = datetime.strptime(f"{month}/{year}", "%m/%Y")
-    today = datetime.strptime(f"{date.today().month}/{date.today().year}", "%m/%Y")
+    month_today = str(date.today().month).zfill(2)
+    year_today = str(date.today().year).zfill(2)
+    today = datetime.strptime(f"{month_today}/{year_today}", "%m/%Y")
 
     delta = relativedelta.relativedelta(date_notation, today)
 
