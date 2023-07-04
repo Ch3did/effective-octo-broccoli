@@ -9,15 +9,3 @@ def start_extraction():
 
 if __name__ == "__main__":
     start_extraction()
-
-
-# import re
-
-# string = "Here are some examples: $11.1, $111,111.11, 11 dollars, 11 USD"
-
-# pattern = r"\$\d+(\.\d+)?|\d+(\.\d+)? dollars?|\d+ USD"
-
-# matches = re.findall(pattern, string)
-
-# for match in matches:
-#     print(match)
