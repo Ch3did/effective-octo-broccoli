@@ -1,26 +1,19 @@
-from openpyxl import load_workbook
+import pandas as pd
 
 from src.helpers.get_env import FILE_NAME
 
 
-def append_data_to_excel(data):
-    file_path = f"tmp/{FILE_NAME}.xml"
+def append_data_to_excel(data_list):
+    file_path = f"tmp/{FILE_NAME}.xlsx"
 
-    # Load the existing workbook
-    workbook = load_workbook(file_path)
+    # Create a DataFrame from the list of dictionaries
+    df = pd.DataFrame(data_list)
 
-    # Access the active sheet
-    sheet = workbook.active
+    # Create an Excel writer using pandas
+    writer = pd.ExcelWriter(file_path, engine="xlsxwriter")
 
-    # Get the data columns from the request body dictionary
-    columns = list(data.keys())
+    # Write the DataFrame to the Excel file
+    df.to_excel(writer, index=False, sheet_name="Sheet1")
 
-    # Append the data to the next available row in the sheet
-    new_row = [data[column] for column in columns]
-    sheet.append(new_row)
-
-    # Save the updated workbook
-    workbook.save(file_path)
-
-    # Close the workbook
-    workbook.close()
+    # Save the Excel file
+    writer.close()
