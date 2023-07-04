@@ -6,8 +6,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-from helpers.validator import date_validator, money_validator
 from src.helpers.get_env import MONTHS, NYT_URL, PHRASE, SECTION
+from src.helpers.validator import date_validator, money_validator
 from src.helpers.xpath import XpathNotations
 
 
@@ -90,6 +90,7 @@ class NYTView:
         item = 1
         data = []
         while not has_finish:
+            logger.info(f"Running item {item}")
             page_len = len(
                 self.driver.find_elements(By.XPATH, self.xpath.get_date(item))
             )
@@ -103,6 +104,7 @@ class NYTView:
                 date = date_response[1]
 
                 if date_response[0]:
+                    logger.info("Find new info")
                     news = {
                         "date": date,
                         "title": self.driver.find_element(
@@ -127,14 +129,14 @@ class NYTView:
                     with open(f"tmp/{filename}.png", "wb") as file:
                         file.write(
                             self.driver.find_element(
-                                By.XPATH,
-                                self.xpath.get_picture_name(item).screenshot_as_png,
-                            )
+                                By.XPATH, self.xpath.get_picture_name(item)
+                            ).screenshot_as_png
                         )
 
                     data.append(news)
 
                 else:
+                    logger.info("Finish extraction beased on date")
                     has_finish = True
 
                 item += 1
@@ -144,13 +146,12 @@ class NYTView:
                 has_finish = True
 
             if item > page_len:
+                logger.info("Open more itens to page")
                 self.driver.find_elements(By.XPATH, self.xpath.get_date(item)).click()
 
         return data
 
     def run(self) -> dict:
-        data_dict = {}
-
         # Added filters
         self.select_date_range()
         self.select_section()
