@@ -1,11 +1,15 @@
-from src.helpers.save import append_data_to_excel
-from src.views.nyt_view import NYTView
-from robocorp.tasks import task
+from loguru import logger
 
-@task
+from src.helpers.save_data import append_data_to_excel
+from src.views.nyt_view import NYTView
+
+
 def start_extraction():
+    print("################")
     raw_data = NYTView().run()
     append_data_to_excel(raw_data)
+    logger.info("Finish Task")
+    print("################")
 
 
 if __name__ == "__main__":
