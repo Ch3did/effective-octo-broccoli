@@ -6,7 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-from src.helpers.get_env import MONTHS, NYT_URL, PHRASE, SECTION
+from src.helpers.get_env import MONTHS, NYT_URL, PHRASE, PICTURE_PATH, SECTION
 from src.helpers.validator import date_validator, money_validator
 from src.helpers.xpath import XpathNotations
 
@@ -24,12 +24,11 @@ class NYTView:
         self.driver.set_window_size(1240, 981)
         self.driver.maximize_window()
 
-        # Removed cookie windown
-        self.driver.find_element(By.XPATH, self.xpath.get_cookie_btn()).click()
-
     def select_date_range(self) -> None:
         "Select a year range news for filter results"
 
+        # Removed cookie windown
+        self.driver.find_element(By.XPATH, self.xpath.get_cookie_btn()).click()
         logger.info("Starting filtering using Date")
         date_btn = self.driver.find_element(By.XPATH, self.xpath.get_date_btn())
         date_btn.click()
@@ -79,10 +78,10 @@ class NYTView:
 
         logger.info(f"Starting filtering using phrase '{phrase}'")
 
-        search_filed = self.driver.find_element(By.XPATH, self.xpath.get_search_field())
-        search_filed.send_keys(f"{phrase}")
-
-        search_filed.send_keys(Keys.ENTER)
+        self.driver.find_element(By.XPATH, self.xpath.get_search_btn()).click()
+        search_lable = self.driver.find_element(By.XPATH, self.xpath.get_search_field())
+        search_lable.send_keys(f"{phrase}")
+        search_lable.send_keys(Keys.ENTER)
         time.sleep(1)
 
     def adjust_sort(self) -> None:
@@ -92,6 +91,7 @@ class NYTView:
     def get_data(self) -> dict:
         has_finish = False
         item = 1
+        error = 0
         data = []
         while not has_finish:
             time.sleep(1)
@@ -121,7 +121,7 @@ class NYTView:
                         "picture_url": self.driver.find_element(
                             By.XPATH, self.xpath.get_picture_name(item)
                         ).get_attribute("src"),
-                        "picture_path": f"tmp/pictures/{self.driver.find_element(By.XPATH, self.xpath.get_title(item)).text}.png",
+                        "picture_path": f"{PICTURE_PATH}{self.driver.find_element(By.XPATH, self.xpath.get_title(item)).text}.png",
                     }
 
                     news["has_money_on_it"] = (
@@ -131,7 +131,7 @@ class NYTView:
                     )
 
                     filename = news["title"].lower().replace(" ", "")
-                    with open(f"tmp/{filename}.png", "wb") as file:
+                    with open(f"{PICTURE_PATH}/{filename}.png", "wb") as file:
                         file.write(
                             self.driver.find_element(
                                 By.XPATH, self.xpath.get_picture_name(item)
@@ -141,14 +141,15 @@ class NYTView:
                     data.append(news)
 
                 else:
-                    logger.info("Finish extraction beased on date")
+                    logger.info(f"Finish extraction! Find {item-error} posts")
                     has_finish = True
 
                 item += 1
 
             except NoSuchElementException as error:
-                logger.error(f"Unable to find Element on item {item}")
+                logger.error(f"Unable to find post on item {item}")
                 item += 1
+                error += 1
 
             if item > page_len:
                 logger.info("Open more itens")
@@ -158,9 +159,9 @@ class NYTView:
 
     def run(self) -> dict:
         # Added filters
+        self.uses_search()
         self.select_date_range()
         self.select_section()
         self.adjust_sort()
-        self.uses_search()
 
         return self.get_data()
