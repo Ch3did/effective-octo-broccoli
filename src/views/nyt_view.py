@@ -21,7 +21,6 @@ class NYTView:
         self.driver.get(url)
 
         # Set window size
-        self.driver.set_window_size(1240, 981)
         self.driver.maximize_window()
 
     def select_date_range(self) -> None:
