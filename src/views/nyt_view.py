@@ -146,10 +146,10 @@ class NYTView:
 
                 item += 1
 
-            except NoSuchElementException as error:
+            except NoSuchElementException as er:
                 logger.error(f"Unable to find post on item {item}")
                 item += 1
-                error += 1
+                error = 1
 
             if item > page_len:
                 logger.info("Open more itens")
