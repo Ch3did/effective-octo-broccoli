@@ -28,16 +28,16 @@ class XpathNotations:
         return f'//*[@id="site-content"]/div[1]/div[1]/div[2]/div/div/div[2]/div/div/div/ul/li[{index}]/label'
 
     @classmethod
+    def get_search_btn(self):
+        return '//*[@id="app"]/div[2]/div/header/section[1]/div[1]/div[2]/button'
+
+    @classmethod
     def get_search_field(self):
-        return '//*[@id="searchTextField"]'
+        return '//*[@id="app"]/div[2]/div/header/section[1]/div[1]/div[2]/div/form/div/input'
 
     @classmethod
     def get_sort(self):
         return '//*[@id="site-content"]/div[1]/div[1]/div[1]/form/div[2]/div/select/option[2]'
-
-    @classmethod
-    def get_search_btn(self):
-        return '//*[@id="site-content"]/div[1]/div[1]/div[1]/form/div[1]/button/svg'
 
     @classmethod
     def get_all_in_page(self):
