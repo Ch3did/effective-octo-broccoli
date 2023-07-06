@@ -27,6 +27,10 @@ To run the application, follow these steps:
 
 > make run
 
+Note if you delete the tmp folder, you need to restore them to run the aplication using
+
+>make folder
+
 The application will launch the New York Times website using Chrome and start crawling based.
 
 ## Getting the data
