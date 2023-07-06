@@ -13,7 +13,16 @@ start:
 	@pip3 install requirements.txt
 	@cp env.credentials .env
 
+
 .PHONY: run
-# Automate first install
+# run process
 run:
-	@python3 main.py
+	@python3 tasks.py
+
+
+.PHONY: folders
+# create folders process
+folders:
+	@echo ">>> Creating dowload folders"
+	@mkdir tmp/
+	@mkdir tmp/pictures
