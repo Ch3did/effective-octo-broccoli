@@ -29,7 +29,7 @@ To run the application, follow these steps:
 
 Note if you delete the tmp folder, you need to restore them to run the aplication using
 
->make folder
+> make folders
 
 The application will launch the New York Times website using Chrome and start crawling based.
 
