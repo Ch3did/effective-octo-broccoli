@@ -3,6 +3,25 @@ from datetime import date, datetime
 
 from dateutil import relativedelta
 
+months = {
+    "Jan": "January",
+    "Feb": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "Aug": "August",
+    "Sept": "September",
+    "Oct": "October",
+    "Nov": "November",
+    "Dec": "December",
+}
+
+
+def adjust_month(name):
+    return months[name]
+
 
 def date_validator(incomming_date, filter):
     # in case filter == 0
@@ -17,7 +36,7 @@ def date_validator(incomming_date, filter):
     if dot < 0:
         dot = incomming_date.find(" ")
 
-    str_month = incomming_date[:dot].strip(" ")
+    str_month = adjust_month(incomming_date[:dot].strip(" "))
 
     year = incomming_date[-4:] if commas > 0 else date.today().year
     month = str(datetime.strptime(str_month, "%B").month).zfill(2)
