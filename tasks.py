@@ -6,6 +6,7 @@ from src.views.nyt_view import NYTView
 
 def start_extraction():
     print("################")
+    logger.info("Starting effective-octo-broccoli...")
     raw_data = NYTView().run()
     append_data_to_excel(raw_data)
     logger.info("Finish Task")
