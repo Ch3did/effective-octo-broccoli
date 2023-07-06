@@ -20,3 +20,6 @@ MONTHS = os.environ.get("MONTHS")
 
 # URL Views
 NYT_URL = os.environ.get("NEW_YOUR_TIMES")
+
+
+PICTURE_PATH = os.environ.get("PICTURE_PATH")
