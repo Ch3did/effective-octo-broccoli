@@ -2,14 +2,14 @@
 # Automate first install
 start:
 	@echo ">>> Starting project"
-	@echo " \n >>> Creating directorys"
+	@echo ">>> Creating directorys"
 	@mkdir tmp/
 	@mkdir tmp/pictures
-	@echo ">>> Creating Venv"
-	@python3 -m venv venv
-	@source venv/bin/activate
-	@pip3 install -r requirements.txt
+	@echo ">>> Creating env file"
 	@cp env.config env
+	@echo ">>> Installing Dependences"
+	@pip3 install -r requirements.txt
+
 
 
 .PHONY: run
