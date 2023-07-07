@@ -104,7 +104,7 @@ class NYTView:
                     By.XPATH, self.xpath.get_date(item)
                 ).text
 
-                date_response = date_validator(date, MONTHS)
+                date_response = date_validator(date, int(MONTHS))
                 date = date_response[1]
 
                 if date_response[0]:
