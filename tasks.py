@@ -9,7 +9,6 @@ def start_extraction():
     logger.info("Starting effective-octo-broccoli...")
     raw_data = NYTView().run()
     append_data_to_excel(raw_data)
-    logger.info("Finish Task")
     print("################")
 
 
