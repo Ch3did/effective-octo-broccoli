@@ -148,6 +148,7 @@ class NYTView:
         
         # Removed cookie windown
         self.driver.find_element(By.XPATH, self.xpath.get_cookie_btn()).click()
+        time.sleep(1)
         
         self.select_section()
         self.adjust_sort()
