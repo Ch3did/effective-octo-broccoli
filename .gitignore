@@ -165,4 +165,5 @@ env
 
 tmp/
 
+.vscode/
 output/
