@@ -11,7 +11,7 @@ def decorator(func):
 
 
 @decorator
-def update(var: dict)-> None:
+def update(var: str)-> None:
     gambiarra = "number of" if "months" in var else ""
     new_var = input(f"Enter the new {gambiarra} {var.lower()}: ")
     with open('env', 'r') as file:
