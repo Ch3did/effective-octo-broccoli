@@ -23,20 +23,6 @@ class NYTView:
         # Set window size
         self.driver.maximize_window()
 
-    def select_date_range(self) -> None:
-        "Select a year range news for filter results"
-
-        # Removed cookie windown
-        self.driver.find_element(By.XPATH, self.xpath.get_cookie_btn()).click()
-        logger.info("Starting filtering using Date")
-        date_btn = self.driver.find_element(By.XPATH, self.xpath.get_date_btn())
-        date_btn.click()
-
-        a_year = self.driver.find_element(By.XPATH, self.xpath.get_btn_year())
-        a_year.click()
-
-        time.sleep(1)
-        date_btn.click()
 
     def select_section(self) -> None:
         "Uses section varible to filter results"
@@ -159,7 +145,10 @@ class NYTView:
     def run(self) -> dict:
         # Added filters
         self.uses_search()
-        self.select_date_range()
+        
+        # Removed cookie windown
+        self.driver.find_element(By.XPATH, self.xpath.get_cookie_btn()).click()
+        
         self.select_section()
         self.adjust_sort()
 
