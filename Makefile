@@ -1,5 +1,3 @@
-# TODO: Create an start to use in firts run
-
 .PHONY: start
 # Automate first install
 start:
@@ -8,10 +6,10 @@ start:
 	@mkdir tmp/
 	@mkdir tmp/pictures
 	@echo ">>> Creating Venv"
-	@python3 -m venv .venv
-	@source .venv/bin/activate
-	@pip3 install requirements.txt
-	@cp env.credentials .env
+	@python3 -m venv venv
+	@source venv/bin/activate
+	@pip3 install -r requirements.txt
+	@cp env.config env
 
 
 .PHONY: run
@@ -26,3 +24,25 @@ folders:
 	@echo ">>> Creating dowload folders"
 	@mkdir tmp/
 	@mkdir tmp/pictures
+
+
+.PHONY: phrase
+# update phrase
+phrase:
+	@echo ">>> Updating env phrase..."
+	@python3 src/helpers/env_update.py -t "phrase"
+
+
+.PHONY: section
+# update section
+section:
+	@echo ">>> Updating env section..."
+	@python3 src/helpers/env_update.py -t "section"
+
+
+
+.PHONY: months
+# update months
+months:
+	@echo ">>> Updating env months..."
+	@python3 src/helpers/env_update.py -t "months"
