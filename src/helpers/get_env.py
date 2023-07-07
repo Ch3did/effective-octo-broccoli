@@ -18,6 +18,6 @@ PICTURE_PATH = os.environ.get("PICTURE_PATH")
 
 
 # category new's
-SECTION = os.environ.get("SECTION", "World")
-PHRASE = os.environ.get("PHRASE", "Brazil")
-MONTHS = os.environ.get("MONTHS", 0)
+SECTION = os.environ.get("SECTION")
+PHRASE = os.environ.get("PHRASE")
+MONTHS = os.environ.get("MONTHS")
